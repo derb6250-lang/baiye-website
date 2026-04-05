@@ -1,0 +1,204 @@
+:root {
+  --white: #ffffff;
+  --black: #000000;
+  --ink: #0d0d0d;
+  --font-ui: system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-menu: "Long Cang", "Ma Shan Zheng", "Noto Serif TC", cursive;
+  --wheel-r: 800px;
+  --arc-strip: 220px;
+  --drag-zone-x: 300px;
+  --link-dim-opacity: 0.15;
+  --rotation-angle: 0deg;
+  --rim: rgba(0, 0, 0, 0.2);
+  --tick-color: rgba(0, 0, 0, 0.32);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  font-family: var(--font-ui);
+  background: var(--white);
+  color: var(--black);
+  overflow-x: hidden;
+}
+
+.page {
+  position: relative;
+  min-height: 100dvh;
+}
+
+.baiye-bg {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(var(--bg-kanji-rot, 0deg))
+    translateX(var(--bg-kanji-nudge, 0px));
+  font-family: var(--font-menu);
+  font-size: min(20vw, 280px);
+  color: rgba(0, 0, 0, 0.035);
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+.content {
+  position: relative;
+  z-index: 5;
+  margin-left: var(--drag-zone-x);
+  padding: 24px 24px 48px;
+  max-width: 48rem;
+}
+
+.panel {
+  min-height: 85vh;
+  padding-top: 48px;
+  border-top: 1px solid var(--black);
+  scroll-margin-top: 24px;
+}
+
+.panel:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+.panel h1,
+.panel h2 {
+  font-family: var(--font-menu);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  margin: 0 0 12px;
+}
+
+.panel p {
+  margin: 0;
+  opacity: 0.45;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+}
+
+/* Left dial column — visual clip only; dragging uses window + clientX < 300 */
+.wheel-mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--arc-strip);
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 100;
+  isolation: isolate;
+}
+
+#baiye-nav {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+#baiye-wheel {
+  --r: var(--wheel-r);
+  position: absolute;
+  top: 50%;
+  left: calc(var(--arc-strip) - 2 * var(--r));
+  width: calc(var(--r) * 2);
+  height: calc(var(--r) * 2);
+  border-radius: 50%;
+  color: var(--rim);
+  transform: translateY(-50%) rotate(var(--rotation-angle));
+  transform-origin: center center;
+  pointer-events: auto;
+  cursor: grab;
+  touch-action: none;
+  transition: transform 0.12s ease-out;
+}
+
+#baiye-wheel.is-dragging {
+  outline: 3px solid rgba(255, 0, 0, 0.85);
+  outline-offset: 2px;
+  transition: none;
+}
+
+#baiye-ticks {
+  pointer-events: auto;
+}
+
+.baiye-nav__rim {
+  position: absolute;
+  inset: 3%;
+  width: 94%;
+  height: 94%;
+  pointer-events: none;
+}
+
+#baiye-ticks {
+  position: absolute;
+  inset: 3%;
+  width: 94%;
+  height: 94%;
+  color: var(--tick-color);
+}
+
+.baiye-nav__ring {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.baiye-nav__ring > li {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  transform: rotate(var(--arc-deg, 0deg)) translateY(calc(-1 * var(--r) + 12px));
+}
+
+.baiye-nav__link {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, -50%)
+    rotate(calc(-1 * var(--arc-deg, 0deg) - var(--rotation-angle, 0deg)));
+  display: block;
+  font-family: var(--font-menu);
+  font-size: clamp(14px, 1.2vw, 16px);
+  text-decoration: none;
+  color: var(--ink);
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  letter-spacing: 0.18em;
+  white-space: nowrap;
+  padding: 8px 4px;
+  opacity: var(--link-dim-opacity);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  pointer-events: auto;
+}
+
+.baiye-nav__link:hover {
+  opacity: 0.45;
+}
+
+.baiye-nav__link.is-centered {
+  opacity: 1;
+  transform: translate(-50%, -50%)
+    rotate(calc(-1 * var(--arc-deg, 0deg) - var(--rotation-angle, 0deg)))
+    scale(1.15);
+}
+
+.baiye-nav__link:focus-visible {
+  outline: 2px solid var(--black);
+  outline-offset: 4px;
+}

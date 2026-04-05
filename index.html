@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <title>白也 · Bai Ye</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Long+Cang&family=Ma+Shan+Zheng&family=Noto+Serif+TC:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page" id="page">
+      <div class="baiye-bg" aria-hidden="true">白也</div>
+
+      <main class="content">
+        <section class="panel" id="home" tabindex="-1">
+          <h1>人间最得意</h1>
+          <p>Home</p>
+        </section>
+        <section class="panel" id="works" tabindex="-1">
+          <h2>剑斩王座</h2>
+          <p>Works</p>
+        </section>
+        <section class="panel" id="about" tabindex="-1">
+          <h2>诗篇残卷</h2>
+          <p>About</p>
+        </section>
+        <section class="panel" id="contact" tabindex="-1">
+          <h2>飞剑传信</h2>
+          <p>Contact</p>
+        </section>
+      </main>
+
+      <div class="wheel-mask">
+        <nav class="baiye-nav" aria-label="白夜导航" id="baiye-nav">
+          <div class="baiye-nav__wheel" id="baiye-wheel">
+            <svg class="baiye-nav__rim" viewBox="0 0 200 200" aria-hidden="true">
+              <path
+                d="M 18 118 A 82 82 0 0 1 182 118"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="0.35"
+                stroke-linecap="round"
+              />
+            </svg>
+            <svg class="baiye-nav__ticks" id="baiye-ticks" viewBox="0 0 200 200" aria-hidden="true"></svg>
+            <ul class="baiye-nav__ring" id="baiye-ring">
+              <li><a class="baiye-nav__link" href="#home">人间最得意</a></li>
+              <li><a class="baiye-nav__link" href="#works">剑斩王座</a></li>
+              <li><a class="baiye-nav__link" href="#about">诗篇残卷</a></li>
+              <li><a class="baiye-nav__link" href="#contact">飞剑传信</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>
